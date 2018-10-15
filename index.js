@@ -3,11 +3,12 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const app = express();
+const credentials = require('./config/keys');
 
 const googleStrategy = new GoogleStrategy({
 	clientID: GOOGLE_CLIENT_ID,
 	clientSecret: GOOGLE_CLIENT_SECRET,
-	callbackURL: ''
+	callbackURL: 'http://localhost/'
 });
 
 passport.use(
