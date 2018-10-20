@@ -3,7 +3,6 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('./config/keys');
 
-
 const app = express();
 const GOOGLE_CLIENT_ID = keys.googleClientID;
 const GOOGLE_CLIENT_SECRET = keys.googleClientSecret;
@@ -14,7 +13,9 @@ const googleStrategy = new GoogleStrategy({
 		callbackURL: '/auth/google/callback'
 	},
 	function(accessToken, refreshToken, profile, cb) {
-		console.log(accessToken);
+		console.log('access token:', accessToken);
+		console.log('refresh token:', refreshToken);
+		console.log('profile:', profile);
 	},
 );
 
@@ -51,10 +52,21 @@ app.get(
 	})
 );
 
-// app.get('/auth/google/callback', (req, res) => {
-// 	console.log('zzzzzzzzzzzzzz');
-// 	res.send({'hi': 'there'});
+app.get('/auth/google/callback', passport.authenticate('google'));
+
+// app.get(
+// 	'/auth/google', 
+// 	function(req, res) {
+// 		console.log(req, res);
+// 	});
+
+// app.get('/auth/google/callback', function(req, res) {
+// 	console.log(req);
+// 	console.log(res);
 // });
+
+
+
 
 app.listen(PORT);
 
