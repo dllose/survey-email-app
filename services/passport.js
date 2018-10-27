@@ -19,12 +19,17 @@ module.exports = function() {
 		.then((user) => {
 			if (user) {
 				console.log("User Exists");
+				cb(null, user);
 			} else {
 				// console.log("Waley");
-				new User({ googleId: profile.id }).save();
+				new User({ googleId: profile.id })
+				.save()
+				.then((user => { 
+					return cb(null, user)
+				}));
 			}
 		});
-		// new User({ googleId: profile.id }).save();
+
 	});
 
 	passport.use(
