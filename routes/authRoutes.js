@@ -26,6 +26,10 @@ module.exports = function(app) {
 	// 	console.log(res);
 	// });
 
+	app.get('/test', function(req, res) {
+		res.setHeader('Set-Cookie', ['ninja=naruto;HttpOnly;SameSite=Strict']);
+		res.send('Hiiiiiiiiiiiii!');
+	});
 
 };
 

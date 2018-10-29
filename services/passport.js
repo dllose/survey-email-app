@@ -5,6 +5,21 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('users');
 
+passport.serializeUser((user, done) => {
+	console.log(user);
+	//shortcut for user._id.$oid
+	console.log(user.id);
+	done(null, user.id)
+});
+
+passport.deserializeUser((id, done) => {
+	//everytime there's an action to the data. It is a asynchronous. It returns a Promise, so it should be chained by .then()
+	User.findById(id)
+	.then(user => {
+		done(null, user);
+	})
+});
+
 module.exports = function() {
 
 	const GOOGLE_CLIENT_ID = keys.googleClientID;
@@ -14,18 +29,17 @@ module.exports = function() {
 		clientSecret: GOOGLE_CLIENT_SECRET,
 		callbackURL: '/auth/google/callback'
 	},
-	function(accessToken, refreshToken, profile, cb) {
+	function(accessToken, refreshToken, profile, done) {
 		User.findOne({ googleId: profile.id })
 		.then((user) => {
 			if (user) {
 				console.log("User Exists");
-				cb(null, user);
+				done(null, user);
 			} else {
-				// console.log("Waley");
 				new User({ googleId: profile.id })
 				.save()
 				.then((user => { 
-					return cb(null, user)
+					return done(null, user)
 				}));
 			}
 		});
