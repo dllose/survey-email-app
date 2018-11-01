@@ -15,16 +15,15 @@ module.exports = function(app) {
 
 	app.get('/auth/google/callback', passport.authenticate('google'));
 
-	// app.get(
-	// 	'/auth/google', 
-	// 	function(req, res) {
-	// 		console.log(req, res);
-	// 	});
+	app.get('/api/logout', (req, res) => {
+		req.logout();
+		res.send("You are logged out " + req.user);
+	});
 
-	// app.get('/auth/google/callback', function(req, res) {
-	// 	console.log(req);
-	// 	console.log(res);
-	// });
+	app.get('/api/current_user', (req, res) => {
+		console.log(req.user);
+		res.send(req.user);
+	});
 
 	app.get('/test', function(req, res) {
 		res.setHeader('Set-Cookie', ['ninja=naruto;HttpOnly;SameSite=Strict']);

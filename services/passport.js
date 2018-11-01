@@ -16,6 +16,7 @@ passport.deserializeUser((id, done) => {
 	//everytime there's an action to the data. It is a asynchronous. It returns a Promise, so it should be chained by .then()
 	User.findById(id)
 	.then(user => {
+		console.log(user);
 		done(null, user);
 	})
 });
