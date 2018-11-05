@@ -16,7 +16,6 @@ passport.deserializeUser((id, done) => {
 	//everytime there's an action to the data. It is a asynchronous. It returns a Promise, so it should be chained by .then()
 	User.findById(id)
 	.then(user => {
-		console.log(user);
 		done(null, user);
 	})
 });
@@ -28,16 +27,23 @@ module.exports = function() {
 	const googleStrategy = new GoogleStrategy({
 		clientID: GOOGLE_CLIENT_ID,
 		clientSecret: GOOGLE_CLIENT_SECRET,
-		callbackURL: '/auth/google/callback'
+		callbackURL: '/auth/google/callback', //relative path makes think Google think you are using http,
+		proxy: true
 	},
 	function(accessToken, refreshToken, profile, done) {
+
 		User.findOne({ googleId: profile.id })
 		.then((user) => {
 			if (user) {
 				console.log("User Exists");
 				done(null, user);
 			} else {
-				new User({ googleId: profile.id })
+				new User({ 
+					googleId: profile.id,
+					firstname: profile.name.givenName,
+					lastname: profile.name.familyName,
+					email: profile.emails[0].value
+				 })
 				.save()
 				.then((user => { 
 					return done(null, user)
