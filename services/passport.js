@@ -30,28 +30,46 @@ module.exports = function() {
 		callbackURL: '/auth/google/callback', //relative path makes think Google think you are using http,
 		proxy: true
 	},
-	function(accessToken, refreshToken, profile, done) {
+	async function(accessToken, refreshToken, profile, done) {
 
-		User.findOne({ googleId: profile.id })
-		.then((user) => {
-			if (user) {
-				console.log("User Exists");
-				done(null, user);
-			} else {
-				new User({ 
-					googleId: profile.id,
-					firstname: profile.name.givenName,
-					lastname: profile.name.familyName,
-					email: profile.emails[0].value
-				 })
-				.save()
-				.then((user => { 
-					return done(null, user)
-				}));
-			}
-		});
+		const user = await User.findOne({ googleId: profile.id });
+
+		if (user) {
+			console.log("User Exists");
+			return done(null, user);
+		}
+		const user = await new User({ 
+			googleId: profile.id,
+			firstname: profile.name.givenName,
+			lastname: profile.name.familyName,
+			email: profile.emails[0].value
+			})
+		.save()
+		done(null, user);
 
 	});
+	// function(accessToken, refreshToken, profile, done) {
+
+	// 	User.findOne({ googleId: profile.id })
+	// 	.then((user) => {
+	// 		if (user) {
+	// 			console.log("User Exists");
+	// 			done(null, user);
+	// 		} else {
+	// 			new User({ 
+	// 				googleId: profile.id,
+	// 				firstname: profile.name.givenName,
+	// 				lastname: profile.name.familyName,
+	// 				email: profile.emails[0].value
+	// 			 })
+	// 			.save()
+	// 			.then((user => { 
+	// 				return done(null, user)
+	// 			}));
+	// 		}
+	// 	});
+
+	// });
 
 	passport.use(
 		googleStrategy,
