@@ -38,14 +38,15 @@ module.exports = function() {
 			console.log("User Exists");
 			return done(null, user);
 		}
-		const user = await new User({ 
+		
+		const existingUser = await new User({ 
 			googleId: profile.id,
 			firstname: profile.name.givenName,
 			lastname: profile.name.familyName,
 			email: profile.emails[0].value
 			})
 		.save()
-		done(null, user);
+		done(null, existingUser);
 
 	});
 	// function(accessToken, refreshToken, profile, done) {
