@@ -13,11 +13,19 @@ module.exports = function(app) {
 		})
 	);
 
-	app.get('/auth/google/callback', passport.authenticate('google'));
+	app.get(
+		'/auth/google/callback', 
+		passport.authenticate('google'),
+		(req, res) => {
+			console.log('Argument inside');
+			res.redirect('/surveys');
+
+		});
 
 	app.get('/api/logout', (req, res) => {
+		req.session = null;
 		req.logout();
-		res.send("You are logged out " + req.user);
+		res.redirect('/');
 	});
 
 	app.get('/api/current_user', (req, res) => {

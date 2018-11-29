@@ -7,7 +7,6 @@ const keys = require('./config/keys');
 require('./models/User');
 
 const passportConfig = require('./services/passport');
-console.log(keys);
 const mongoURI = keys.mongoURI;
 mongoose.connect(mongoURI);
 // require('./services/passport');
