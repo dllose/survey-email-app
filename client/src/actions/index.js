@@ -6,6 +6,13 @@ export const getUser = () => async dispatch => {
     dispatch({ type: GET_USER, payload: response.data });
 }
 
+export const handleToken = (token) => async dispatch => {
+    const response = await axios.post('/api/stripe', token);
+    console.log(response);
+
+    dispatch({ type: GET_USER, payload: response.data });
+}
+
 // export const getUser = () => async dispatch => 
 //     dispatch({ type: GET_USER, payload: await axios.get('/api/current_user') });
 

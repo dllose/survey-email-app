@@ -29,9 +29,14 @@ module.exports = function(app) {
 	});
 
 	app.get('/api/current_user', (req, res) => {
-		console.log(req.user);
+		// console.log(req.user);
 		res.send(req.user);
 	});
+
+	// app.post('/api/stripe', (req, res) => {
+	// 	console.log(req.body);
+	// 	res.send("NAMO!!!");
+	// });
 
 	app.get('/test', function(req, res) {
 		res.setHeader('Set-Cookie', ['ninja=naruto;HttpOnly;SameSite=Strict']);
