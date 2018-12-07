@@ -39,7 +39,7 @@ module.exports = function(app) {
 		res.send('Hiiiiiiiiiiiii!');
 	});
 
-	app.get('/benjoerz', function(res) {
+	app.get('/benjoerz', function(req, res) {
 		res.send({'Benjo': 'Niogniogg'});
 	});
 
