@@ -39,5 +39,9 @@ module.exports = function(app) {
 		res.send('Hiiiiiiiiiiiii!');
 	});
 
+	app.get('/benjoerz', function(res) {
+		res.send({'Benjo': 'Niogniogg'});
+	});
+
 };
 
