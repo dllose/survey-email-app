@@ -25,8 +25,15 @@ module.exports = function(app) {
 	});
 
 	app.get('/api/current_user', (req, res) => {
-		// console.log(req.user);
 		res.send(req.user);
+	});
+
+	app.get('/api/surveys', (req, res) => {
+
+	});
+
+	app.post('/api/survey', (req, res) => {
+
 	});
 
 	// app.post('/api/stripe', (req, res) => {
