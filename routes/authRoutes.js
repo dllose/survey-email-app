@@ -28,14 +28,6 @@ module.exports = function(app) {
 		res.send(req.user);
 	});
 
-	app.get('/api/surveys', (req, res) => {
-
-	});
-
-	app.post('/api/survey', (req, res) => {
-
-	});
-
 	// app.post('/api/stripe', (req, res) => {
 	// 	console.log(req.body);
 	// 	res.send("NAMO!!!");

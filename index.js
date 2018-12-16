@@ -37,6 +37,7 @@ passportConfig();
 // IIFE
 require('./routes/authRoutes')(app);
 require('./routes/stripeRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
     // Express runs assets for production (main.js, main.css)

@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+// const Schema = mongoose.Schema;
 //es6
 const { Schema } = mongoose;
+const RecipientSchema = require('./Recipient');
 
 const surveySchema = new Schema({
 	title: String,
 	body: String,
 	subject: String,
-	recipients: [String], // Array containing Strings. Should be a Recipient model?
+	recipients: [RecipientSchema], // Array containing RecipientSchema. Should be a Recipient model?
 	yes: {
 		type: Number,
 		default: 0
@@ -15,8 +16,11 @@ const surveySchema = new Schema({
 	no: {
 		type: Number,
 		default: 0
-	}
-	//user: [{ type: Schema.Types.ObjectId, ref: 'users' }]
+	},
+	// _user: { type: Schema.Types.ObjectId, ref: 'users' }
+	_user: { type: Schema.Types.ObjectId, ref: 'User' },
+	dateSent: { type: Date },
+	lastResponded: { type: Date }
 });
 
 mongoose.model('surveys', surveySchema);
