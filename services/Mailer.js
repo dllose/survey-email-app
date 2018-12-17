@@ -13,3 +13,5 @@ const apiKey = require('../config/keys').sendGridKey;
 class Mailer extends helper.Mail {
 
 }
+
+module exports = Mailer;

@@ -5,6 +5,8 @@ const requireCredits = require('../middlewares/requireCredits');
 
 //Can require models/Survey.js instead of this approach
 const Survey = mongoose.model('surveys');
+const Mailer = require('../services/Mailer');
+const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 
 module.exports = function(app) {
 
@@ -22,7 +24,11 @@ module.exports = function(app) {
             _user: req.user.id,
             dateSent: Date.now()
         });
-        survey.save();
+        
+        //trigger send email
+        const mailer = new Mailer(survey, surveyTemplate(survey));
+        // survey.save();
+
     });
     
 }
