@@ -26,6 +26,8 @@ module.exports = function(app) {
         });
         
         //trigger send email
+        // 1st argument - surveyObject contains information about the email (title, subject, body, reciepients, and sender)
+        // 2nd argument - passing a survey.body to the template file
         const mailer = new Mailer(survey, surveyTemplate(survey));
         // survey.save();
 

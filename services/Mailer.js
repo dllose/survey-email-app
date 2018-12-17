@@ -12,6 +12,15 @@ const apiKey = require('../config/keys').sendGridKey;
 
 class Mailer extends helper.Mail {
 
+	constructor({ subject, recipients }, content) {
+		super();
+	}
+
+	// constructor(surveyObject, template) {
+	// 	this.surveyObject = surveyObject;
+	// 	this.template = template;
+	// }
+
 }
 
 module exports = Mailer;
