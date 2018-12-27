@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField';
 import { Link } from 'react-router-dom';
+import validateEmails from '../../utils/validateEmails';
 
 const FIELDS = [
     {
@@ -81,12 +82,15 @@ export default reduxForm({
         // { title, subject, body, emails }
         ) => {
         const errors = {};
+        
+        errors.emails = validateEmails(values.emails || '');
 
         FIELDS.forEach(({ name, errorMessage }) => { //name property of the FIELDS array
             if (!values[name]) {
                 // errors[name] = name[0].toUpperCase() + name.slice(1) + ' is required';
                 errors[name] = errorMessage;
             }
+
         });
 
         // if (!title) {
