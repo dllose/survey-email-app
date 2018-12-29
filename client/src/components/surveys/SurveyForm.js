@@ -5,36 +5,36 @@ import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField';
 import { Link } from 'react-router-dom';
 import validateEmails from '../../utils/validateEmails';
-import { throws } from 'assert';
+import formFields from './formFields';
 
-const FIELDS = [
-    {
-        label: 'Survey Title',
-        name: 'title',
-        errorMessage: 'Title is required'
-    },
-    {
-        label: 'Subject Line',
-        name: 'subject',
-        errorMessage: 'Subject is required'
-    },
-    {
-        label: 'Email Body',
-        name: 'body',
-        errorMessage: 'Message is required'
+// const FIELDS = [
+//     {
+//         label: 'Survey Title',
+//         name: 'title',
+//         errorMessage: 'Title is required'
+//     },
+//     {
+//         label: 'Subject Line',
+//         name: 'subject',
+//         errorMessage: 'Subject is required'
+//     },
+//     {
+//         label: 'Email Body',
+//         name: 'body',
+//         errorMessage: 'Message is required'
 
-    },
-    {
-        label: 'Recipients',
-        name: 'emails',
-        errorMessage: 'E-mail Address is required'
-    },
-];
+//     },
+//     {
+//         label: 'Recipients',
+//         name: 'emails',
+//         errorMessage: 'E-mail Address is required'
+//     },
+// ];
 
 class SurveyForm extends Component {
 
     renderFields() {
-        return FIELDS.map(({ label, name }) => {
+        return formFields.map(({ label, name }) => {
             return <Field 
                 key={name}
                 component={SurveyField}
@@ -85,7 +85,7 @@ export default reduxForm({
         
         errors.emails = validateEmails(values.emails || '');
 
-        FIELDS.forEach(({ name, errorMessage }) => { //name property of the FIELDS array
+        formFields.forEach(({ name, errorMessage }) => { //name property of the FIELDS array
             if (!values[name]) {
                 // errors[name] = name[0].toUpperCase() + name.slice(1) + ' is required';
                 errors[name] = errorMessage;
@@ -108,5 +108,6 @@ export default reduxForm({
 
         return errors;
     },
-    form: 'surveyForm' //form is the only important key here
+    form: 'surveyForm', //form is the only important key here
+    destroyOnUnmount: false //True by default. True would destroy the values. False won't clear the text fields
 })(SurveyForm);
