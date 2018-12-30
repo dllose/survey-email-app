@@ -17,7 +17,7 @@ const FIELDS = [
     },
     {
         label: 'Recipients',
-        name: 'emails',
+        name: 'recipients',
         errorMessage: 'E-mail Address is required'
     },
 ];

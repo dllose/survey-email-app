@@ -1,6 +1,8 @@
 // SurveyNew shows the SurveyForm Component and SurveyFormReview
-
 import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
+// import { connect } from 'react-redux';
+// import * as actions from '../../actions';
 import SurveyForm from './SurveyForm';
 import SurveyFormReview from './SurveyFormReview';
 
@@ -13,6 +15,13 @@ class SurveyNew extends Component {
     state = {
         showFormReview: false
     };
+
+    // componentWillUnmount() {
+    //     // console.log(this.props.form.surveyForm.values);
+    //     // this.formValues;
+    //     actions.clearSurveyFormValues(this.props.form.surveyForm.values);
+        
+    // }
 
     renderContent() {
       return (
@@ -31,4 +40,13 @@ class SurveyNew extends Component {
 
 }
 
-export default SurveyNew;
+export default reduxForm({
+    form: 'surveyForm'
+})(SurveyNew);
+
+
+// function mapStateToProps(state) {
+//     return state;
+// };
+
+// export default connect(mapStateToProps)(SurveyNew);

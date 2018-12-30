@@ -83,14 +83,13 @@ export default reduxForm({
         ) => {
         const errors = {};
         
-        errors.emails = validateEmails(values.emails || '');
+        errors.recipients = validateEmails(values.recipients || '');
 
         formFields.forEach(({ name, errorMessage }) => { //name property of the FIELDS array
             if (!values[name]) {
                 // errors[name] = name[0].toUpperCase() + name.slice(1) + ' is required';
                 errors[name] = errorMessage;
             }
-
         });
 
         // if (!title) {
