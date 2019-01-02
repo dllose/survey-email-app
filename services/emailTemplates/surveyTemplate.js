@@ -9,10 +9,10 @@ module.exports = function(survey) {
 					<p>Please answer the following question: </p>
 					<p>${survey.body}</p>
 					<div>
-						<a href="${domainLink}/api/surveys/thank-you-page">Yes</a>
+						<a href="${domainLink}/api/surveys/${survey.id}/yes">Yes</a>
 					</div>
 					<div>
-						<a href="${domainLink}/api/surveys/thank-you-page">No</a>
+						<a href="${domainLink}/api/surveys/${survey.id}/no">No</a>
 					</div>
 				</div>
 			</body>

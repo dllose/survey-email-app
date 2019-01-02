@@ -1,3 +1,9 @@
+const _ = require('lodash');
+// const Path = require('path-parser');
+// const { URL } = require('url');
+const { Path } = require('path-parser');
+const url = require('url');
+
 const mongoose = require('mongoose');
 
 const requireCredits = require('../middlewares/requireCredits');
@@ -16,6 +22,34 @@ module.exports = function(app) {
 
     app.get('/api/surveys/thank-you-page', (req, res) => {
         res.send('Thank you for the feedback!');
+    });
+
+    //webhook route
+    app.post('/api/surveys/webhooks', (req, res) => {
+        const events = req.body.map((event) => {
+            console.log(event.url);
+            // const pathname new URL(event.url).pathname;
+            const pathname = url.parse(event.url).pathname
+            const pathParser = new Path("/api/surveys/:surveyId/:choice");
+            // console.log(pathParser);
+            // console.log("Pathname: " + pathname);
+            // console.log(pathParser.test(pathname));
+            const isUrlFormat = pathParser.test(pathname);
+            if (isUrlFormat) {
+                
+                return { 
+                    email: event.email,
+                    surveyId: isUrlFormat.surveyId,
+                    choice: isUrlFormat.choice
+                };
+            }
+        });
+        const filteredEvents = events.filter(event => event !== undefined);
+        // console.log(req.body);
+        const uniqueEvents = _.uniqBy(filteredEvents, 'email', 'surveyId');
+        console.log("Unique: ");
+        console.log(uniqueEvents);
+        res.send({});
     });
 
     app.post('/api/survey', require('../middlewares/requireLogin'), requireCredits, async (req, res) => {
